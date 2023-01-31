@@ -10,6 +10,7 @@ class AuthTextFieldWidget extends StatefulWidget {
   final bool isEnabled;
   final double fontSize;
   final double padding;
+  final String? prefix;
   const AuthTextFieldWidget({
     Key? key,
     required this.label,
@@ -21,6 +22,7 @@ class AuthTextFieldWidget extends StatefulWidget {
     this.onChange,
     this.fontSize = 16,
     this.padding = 8,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -73,6 +75,7 @@ class _AuthTextFieldWidgetState extends State<AuthTextFieldWidget> {
                     fontSize: widget.fontSize,
                     color: Colors.grey,
                   ),
+                  prefixText: widget.prefix,
                   suffixIcon: widget.isPassword
                       ? IconButton(
                           onPressed: () {

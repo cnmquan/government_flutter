@@ -43,7 +43,7 @@ class _SignInPageState extends State<SignInPage> {
           arguments: verificationId,
         );
       },
-      timeout: const Duration(seconds: 60),
+      timeout: const Duration(seconds: 20),
       codeAutoRetrievalTimeout: (String verificationId) {
         setState(() {
           loading = false;
@@ -103,7 +103,8 @@ class _SignInPageState extends State<SignInPage> {
               ),
               AuthTextFieldWidget(
                 label: r'Số điện thoại',
-                hint: r'0123456789',
+                hint: r'123456789',
+                prefix: r'+84',
                 onChange: (value) {
                   phoneNumber = value;
                 },
