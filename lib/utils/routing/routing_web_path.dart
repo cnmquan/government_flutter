@@ -8,4 +8,9 @@ class RoutingWebPath {
   static const String signIn = 'signIn';
   static const String signUp = 'signUp';
   static const String forgetPassword = 'forgetPassword';
+  static const String residentInfo = '$searchInformation/residentInfo';
+  static const String idCard = '$searchInformation/idCard';
+  static const String birthCertificate = '$searchInformation/birthCertificate';
+  static const String registrationBook = '$searchInformation/registrationBook';
+  static const String familyInfo = '$searchInformation/familyInfo';
 }

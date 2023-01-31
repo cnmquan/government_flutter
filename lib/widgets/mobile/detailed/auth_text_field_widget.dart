@@ -7,11 +7,13 @@ class AuthTextFieldWidget extends StatefulWidget {
   final Function(String?)? onChange;
   final bool isPassword;
   final bool isPhoneNumber;
+  final bool isEnabled;
   final double fontSize;
   final double padding;
   const AuthTextFieldWidget({
     Key? key,
     required this.label,
+    this.isEnabled = true,
     this.hint,
     this.error,
     this.isPassword = false,
@@ -56,6 +58,7 @@ class _AuthTextFieldWidgetState extends State<AuthTextFieldWidget> {
               onChanged: widget.onChange,
               obscureText: isShowPassword,
               enableSuggestions: !isShowPassword,
+              enabled: widget.isEnabled,
               keyboardType: widget.isPhoneNumber
                   ? TextInputType.phone
                   : TextInputType.text,
@@ -63,7 +66,7 @@ class _AuthTextFieldWidgetState extends State<AuthTextFieldWidget> {
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-                  enabled: true,
+                  enabled: widget.isEnabled,
                   hintText: widget.hint,
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w300,

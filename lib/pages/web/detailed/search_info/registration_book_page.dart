@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/assets.dart';
-import '../../../utils/translation.dart';
-import '../../../widgets/web.dart';
+import '../../../../utils/assets.dart';
+import '../../../../utils/translation.dart';
+import '../../../../widgets/web.dart';
 
-class StatisticPeoplePage extends StatelessWidget {
-  const StatisticPeoplePage({Key? key}) : super(key: key);
+class RegistrationBookPage extends StatelessWidget {
+  final String? registrationBookId;
+  const RegistrationBookPage({
+    Key? key,
+    this.registrationBookId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "200179531546",
+    "project_id": "government-flutter-app",
+    "storage_bucket": "government-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200179531546:android:caa881d8235e2821a6f6a3",
+        "android_client_info": {
+          "package_name": "com.example.goverment_flutter_system"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200179531546-53tdgq5krn8eu4fi4f041174rqghdskp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPee7tI4CiG2kY6PRoyxFuMzsiNe8Yqqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200179531546-53tdgq5krn8eu4fi4f041174rqghdskp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "200179531546-1nobkl4jeogf336dksv0v9l4jia1apj7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.govermentFlutterSystem.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

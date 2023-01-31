@@ -6,55 +6,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../utils/routing.dart';
 import '../../../widgets/mobile.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class VerifyCodePage extends StatefulWidget {
+  final String? verificationId;
+  const VerifyCodePage({
+    Key? key,
+    this.verificationId,
+  }) : super(key: key);
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<VerifyCodePage> createState() => _VerifyCodePageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-  String? phoneNumber;
-  String? errorPhoneNumber;
+class _VerifyCodePageState extends State<VerifyCodePage> {
+  String? smsCode;
+  String? errorSmsCode;
   String? errorMessage;
   FirebaseAuth auth = FirebaseAuth.instance;
   bool loading = false;
-
-  Future<void> verifyPhone() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+84$phoneNumber',
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        setState(() {
-          loading = false;
-        });
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        setState(() {
-          loading = false;
-        });
-        errorMessage = e.message;
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        setState(() {
-          loading = false;
-        });
-        Navigator.of(context).pushNamed(
-          RoutingMobilePath.verifyCode,
-          arguments: verificationId,
-        );
-      },
-      timeout: const Duration(seconds: 60),
-      codeAutoRetrievalTimeout: (String verificationId) {
-        setState(() {
-          loading = false;
-        });
-        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-          _showCustomDialog(context);
-        });
-        debugPrint(verificationId);
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,39 +70,44 @@ class _SignInPageState extends State<SignInPage> {
                 height: 24,
               ),
               AuthTextFieldWidget(
-                label: r'Số điện thoại',
-                hint: r'0123456789',
+                label: r'Nhập mã xác thực',
+                hint: r'6 chữ số',
                 onChange: (value) {
-                  phoneNumber = value;
+                  smsCode = value;
                 },
                 isPhoneNumber: true,
-                error: errorPhoneNumber,
+                error: errorSmsCode,
               ),
               const SizedBox(
                 height: 12,
               ),
-              const SizedBox(
-                height: 8,
-              ),
               CustomButtonWidget(
-                title: r'Gửi mã OTP',
+                title: r'Xác nhận',
                 thumbnail: Colors.blue,
                 width: 200,
                 height: 48,
-                onPress: () {
-                  if (phoneNumber == null) {
-                    errorPhoneNumber = r'Số điện thoại không đúng định dạng';
+                onPress: () async {
+                  if (smsCode == null) {
+                    errorSmsCode = r'Mã xác thực không được để trống';
                   } else {
-                    errorPhoneNumber = null;
+                    errorSmsCode = null;
                   }
                   setState(() {});
-                  if (errorPhoneNumber != null) {
+                  if (errorSmsCode != null) {
                     return;
                   } else {
-                    setState(() {
-                      loading = true;
-                    });
-                    verifyPhone();
+                    final credential = PhoneAuthProvider.credential(
+                        verificationId: widget.verificationId!,
+                        smsCode: smsCode!);
+
+                    try {
+                      await FirebaseAuth.instance
+                          .signInWithCredential(credential)
+                          .then((value) => {
+                                Navigator.pushNamed(
+                                    context, RoutingMobilePath.home)
+                              });
+                    } catch (e) {}
                   }
                 },
               ),
@@ -143,24 +116,6 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
-  }
-
-  _showCustomDialog(BuildContext context) async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const NotifyMessageWidget(
-              animatedPath: JsonAssetPath.failed,
-              title: r'Báo lỗi',
-              message:
-                  r'Hiện tại hệ thống không thể gửi mã xác thực. Hi vọng bạn có thể chờ đợi và sử dụng sau.',
-            ),
-          );
-        }).then((value) => {Navigator.maybePop(context)});
   }
 
   _showLoadingDialog(BuildContext context) async {

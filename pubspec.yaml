@@ -15,6 +15,9 @@ dependencies:
   cached_network_image: ^3.2.3
   lottie: ^2.2.0
   equatable: ^2.0.5
+  pluto_grid: ^6.0.1
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.2
 
 dev_dependencies:
   flutter_test:

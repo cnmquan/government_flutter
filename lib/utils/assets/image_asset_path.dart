@@ -10,4 +10,5 @@ class ImageAssetPath {
   static const String statisticPeople = '$_assetPath/statistic.jpg';
   static const String acceptRequest = '$_assetPath/request.jpg';
   static const String statisticReport = '$_assetPath/report.jpg';
+  static const String familyInformation = '$_assetPath/report.jpg';
 }
