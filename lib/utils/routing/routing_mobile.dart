@@ -42,6 +42,11 @@ Route<dynamic> routeMobileController(RouteSettings settings) {
         settings: settings,
         builder: (context) => const SignInPage(),
       );
+    case RoutingMobilePath.signInWithPhone:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => const SignInWithPhonePage(),
+      );
     case RoutingMobilePath.verifyCode:
       String? verificationId = settings.arguments as String?;
       return MaterialPageRoute(

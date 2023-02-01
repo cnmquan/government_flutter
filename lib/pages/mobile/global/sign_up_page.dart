@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:goverment_flutter_system/logic/auth_controller.dart';
 import 'package:goverment_flutter_system/utils/assets.dart';
 
 import '../../../utils/routing.dart';
@@ -12,9 +14,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  String? email;
   String? phoneNumber;
   String? password;
   String? reTypePassword;
+  String? errorEmail;
   String? errorPhoneNumber;
   String? errorPassword;
   String? errorReTypePassword;
@@ -66,6 +70,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 isPhoneNumber: true,
                 error: errorPhoneNumber,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              AuthTextFieldWidget(
+                label: r'Email',
+                hint: r'abc@gmail.com',
+                onChange: (value) {
+                  email = value;
+                },
+                isPhoneNumber: false,
+                error: errorEmail,
               ),
               const SizedBox(
                 height: 12,
@@ -124,13 +140,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 thumbnail: Colors.blue,
                 width: 200,
                 height: 48,
-                onPress: () {
+                onPress: () async {
                   if (phoneNumber == null ||
                       phoneNumber!.length > 13 ||
                       phoneNumber!.length < 8) {
                     errorPhoneNumber = r'Số điện thoại không đúng định dạng';
                   } else {
                     errorPhoneNumber = null;
+                  }
+                  if (email == null) {
+                    errorEmail = r'Email không đúng định dạng';
+                  } else {
+                    errorEmail = null;
                   }
                   if (password == null || password!.length < 4) {
                     errorPassword = r'Mật khẩu không đươc nhỏ hơn 4 ký tự';
@@ -148,13 +169,32 @@ class _SignUpPageState extends State<SignUpPage> {
                   setState(() {});
                   if (errorPassword != null ||
                       errorPhoneNumber != null ||
-                      errorReTypePassword != null) {
+                      errorReTypePassword != null ||
+                      errorEmail != null) {
                     return;
                   } else {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      RoutingMobilePath.signIn,
-                    );
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      _showLoadingDialog(context);
+                    });
+                    AuthController()
+                        .signUpResident(
+                      phoneNumber: phoneNumber!,
+                      password: password!,
+                      email: email!,
+                    )
+                        .then((Map<String, String?> response) {
+                      if (response['error'] != null) {
+                        Navigator.of(context).maybePop();
+                        SchedulerBinding.instance
+                            .addPostFrameCallback((timeStamp) {
+                          _showCustomDialog(context, response['error']!);
+                        });
+                      } else {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            RoutingMobilePath.home, (route) => false);
+                      }
+                    });
                   }
                 },
               ),
@@ -178,5 +218,35 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  _showCustomDialog(BuildContext context, String message) async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: NotifyMessageWidget(
+              animatedPath: JsonAssetPath.failed,
+              title: r'Báo lỗi',
+              message: message,
+            ),
+          );
+        }).then((value) => {Navigator.maybePop(context)});
+  }
+
+  _showLoadingDialog(BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const LoadingWidget(),
+          );
+        });
   }
 }

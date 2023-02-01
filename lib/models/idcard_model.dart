@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
+import 'package:faker_dart/faker_dart.dart';
 
 class IdCardModel extends Equatable {
+  final String? image;
   final String? id;
   final String? idNumber;
   final String? fullName;
@@ -31,7 +35,27 @@ class IdCardModel extends Equatable {
     this.placeOfGranted,
     this.ethnic,
     this.religion,
+    this.image,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fullName': fullName,
+      'idNumber': idNumber,
+      'dateOfBirth': dateOfBirth,
+      'dateOfExpiry': dateOfExpiry,
+      'dateOfGranted': dateOfGranted,
+      'gender': gender,
+      'nationality': nationality,
+      'personalIdentification': personalIdentification,
+      'placeOfGranted': placeOfGranted,
+      'placeOfOrigin': placeOfOrigin,
+      'placeOfResidence': placeOfResidence,
+      'ethnic': ethnic,
+      'religion': religion,
+    };
+  }
+
   static IdCardModel example() {
     IdCardModel exampleModel = const IdCardModel(
       fullName: r'Nguyễn Văn A',
@@ -57,4 +81,25 @@ class IdCardModel extends Equatable {
 
   @override
   bool? get stringify => true;
+
+  static IdCardModel createRandomIdCard() {
+    final faker = Faker.instance;
+    faker.setLocale(FakerLocaleType.vi);
+    return IdCardModel(
+      idNumber: '${Random().nextDouble() * 1000000000}',
+      image: 'https://source.unsplash.com/random/?People',
+      fullName: faker.name.fullName(),
+      dateOfBirth: faker.date.month(),
+      dateOfExpiry: faker.date.month(),
+      dateOfGranted: faker.date.month(),
+      gender: Random().nextBool() ? 'Nam' : 'Nữ',
+      nationality: r'Việt Nam',
+      personalIdentification: faker.lorem.text(),
+      placeOfGranted: faker.address.cityName(),
+      placeOfOrigin: faker.address.cityName(),
+      placeOfResidence: faker.address.cityName(),
+      ethnic: r'Kinh',
+      religion: r'Không',
+    );
+  }
 }

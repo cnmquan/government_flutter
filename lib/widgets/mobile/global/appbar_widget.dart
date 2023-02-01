@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goverment_flutter_system/utils/routing.dart';
 
@@ -46,7 +47,9 @@ class AppbarWidget extends StatelessWidget with PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.pushReplacementNamed(context, RoutingMobilePath.signIn);
+            FirebaseAuth.instance.signOut().then((value) {
+              Navigator.pushReplacementNamed(context, RoutingMobilePath.signIn);
+            });
           },
           icon: const Icon(
             Icons.exit_to_app_outlined,
