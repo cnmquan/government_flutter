@@ -47,6 +47,40 @@ Route<dynamic> routeWebController(RouteSettings settings) {
         settings: settings,
         builder: (context) => const ForgetPasswordPage(),
       );
+    case RoutingWebPath.residentInfo:
+      var residentId = settings.arguments;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) =>
+            ResidentInfoPage(residentId: residentId as String?),
+      );
+    case RoutingWebPath.idCard:
+      var idCardId = settings.arguments;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => IdCardPage(idCardId: idCardId as String?),
+      );
+    case RoutingWebPath.birthCertificate:
+      var birthCertificateId = settings.arguments;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => BirthCertificationPage(
+            birthCertificateId: birthCertificateId as String?),
+      );
+    case RoutingWebPath.registrationBook:
+      var registrationBookId = settings.arguments;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => RegistrationBookPage(
+            registrationBookId: registrationBookId as String?),
+      );
+    case RoutingWebPath.familyInfo:
+      var familyId = settings.arguments;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) =>
+            FamilyInformationPage(familyId: familyId as String?),
+      );
     default:
       return MaterialPageRoute(
         settings: settings,

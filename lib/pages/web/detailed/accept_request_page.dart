@@ -17,6 +17,7 @@ class AcceptRequestPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return TemplateWidget(
       isSignIn: true,
+      isBackOn: false,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: NotifyMessageWidget(

@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.goverment_flutter_system">
    <application
+        android:usesCleartextTraffic="true"
         android:label="goverment_flutter_system"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

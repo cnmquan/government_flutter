@@ -5,10 +5,12 @@ import '../../web.dart';
 class TemplateWidget extends StatelessWidget {
   final Widget child;
   final bool isSignIn;
+  final bool isBackOn;
   const TemplateWidget({
     Key? key,
     required this.child,
     this.isSignIn = false,
+    this.isBackOn = true,
   }) : super(key: key);
 
   @override
@@ -53,6 +55,20 @@ class TemplateWidget extends StatelessWidget {
               ),
             ),
           ),
+          if (isBackOn) ...[
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: CustomButtonWidget(
+                title: r'Quay lại',
+                thumbnail: Colors.red,
+                width: 200,
+                height: 48,
+                onPress: () {
+                  Navigator.maybePop(context);
+                },
+              ),
+            ),
+          ],
         ],
       ),
     );

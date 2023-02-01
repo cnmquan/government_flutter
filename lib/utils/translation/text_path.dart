@@ -3,6 +3,7 @@ class TextPath {
   static const String birthCertification = r'Giấy khai sinh';
   static const String registrationBook = r'Sổ hộ khẩu';
   static const String requestPaper = r'Yêu cầu bổ sung';
+  static const String familyInformation = r'Xem thông tin người thân';
 
   static const String searchInformation = r'Tra cứu thông tin';
   static const String manageEmployees = r'Thống kê nhân khẩu';

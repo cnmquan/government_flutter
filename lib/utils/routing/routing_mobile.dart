@@ -32,10 +32,23 @@ Route<dynamic> routeMobileController(RouteSettings settings) {
         settings: settings,
         builder: (context) => const RequestPaperPage(),
       );
+    case RoutingMobilePath.familyInformation:
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => const FamilyInformationPage(),
+      );
     case RoutingMobilePath.signIn:
       return MaterialPageRoute(
         settings: settings,
         builder: (context) => const SignInPage(),
+      );
+    case RoutingMobilePath.verifyCode:
+      String? verificationId = settings.arguments as String?;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => VerifyCodePage(
+          verificationId: verificationId,
+        ),
       );
     case RoutingMobilePath.signUp:
       return MaterialPageRoute(

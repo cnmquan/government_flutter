@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-import '../../../utils/assets.dart';
-import '../../../utils/translation.dart';
-import '../../../widgets/web.dart';
+import '../../../../utils/assets.dart';
+import '../../../../utils/translation.dart';
+import '../../../../widgets/web.dart';
 
-@WidgetbookUseCase(name: 'Page', type: StatisticPeoplePage)
-Widget statisticPeoplePage(BuildContext context) =>
-    MaterialApp(home: StatisticPeoplePage());
-
-class StatisticPeoplePage extends StatelessWidget {
-  const StatisticPeoplePage({Key? key}) : super(key: key);
+class RegistrationBookPage extends StatelessWidget {
+  final String? registrationBookId;
+  const RegistrationBookPage({
+    Key? key,
+    this.registrationBookId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

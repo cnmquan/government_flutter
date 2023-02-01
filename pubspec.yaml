@@ -19,7 +19,9 @@ dependencies:
   widgetbook_annotation: ^2.1.0
   widgetbook_generator: ^2.4.1
   build_runner: ^2.3.3
-  flutter_localization: ^0.1.10
+  pluto_grid: ^6.0.1
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.2
 
 dev_dependencies:
   flutter_test:

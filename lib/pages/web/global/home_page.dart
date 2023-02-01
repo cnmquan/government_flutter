@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TemplateWidget(
       isSignIn: true,
+      isBackOn: false,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Wrap(

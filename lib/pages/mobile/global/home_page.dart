@@ -55,6 +55,14 @@ class HomePage extends StatelessWidget {
             ),
           ),
           ImageBoxTextWidget(
+            imagePath: ImageAssetPath.familyInformation,
+            title: TextPath.familyInformation,
+            onTap: () => Navigator.pushNamed(
+              context,
+              RoutingMobilePath.familyInformation,
+            ),
+          ),
+          ImageBoxTextWidget(
             imagePath: ImageAssetPath.requestPaper,
             title: TextPath.requestPaper,
             onTap: () => Navigator.pushNamed(
