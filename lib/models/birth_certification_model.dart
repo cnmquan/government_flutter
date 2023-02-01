@@ -3,74 +3,95 @@ import 'dart:math';
 import 'package:faker_dart/faker_dart.dart';
 
 class BirthCertificationModel {
-  final String? id;
-  final String? fullName;
-  final String? gender;
-  final String? dateOfBirth;
-  final String? dateOfBirthText;
-  final String? placeOfBirth;
-  final String? ethnic;
-  final String? nationality;
-  final String? placeOfOrigin;
-  final String? fatherFullName;
-  final String? fatherEthnic;
-  final String? fatherNationality;
-  final String? motherFullName;
-  final String? motherEthnic;
-  final String? motherNationality;
-  final String? declarerFullName;
-  final String? declarerRelationship;
-  final String? dateOfRegistration;
-  final String? placeOfRegistration;
+  String? id;
+  String? fullName;
+  String? gender;
+  String? dateOfBirth;
+  String? dateOfBirthText;
+  String? placeOfBirth;
+  String? ethnic;
+  String? nationality;
+  String? placeOfOrigin;
+  String? fatherFullName;
+  String? fatherEthnic;
+  String? fatherNationality;
+  String? motherFullName;
+  String? motherEthnic;
+  String? motherNationality;
+  String? declarerFullName;
+  String? declarerRelationship;
+  String? dateOfRegistration;
+  String? placeOfRegistration;
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'fullName': fullName,
-      'gender': gender,
-      'dateOfBirth': dateOfBirth,
-      'dateOfBirthText': dateOfBirthText,
-      'placeOfBirth': placeOfBirth,
-      'ethnic': ethnic,
-      'nationality': nationality,
-      'placeOfOrigin': placeOfOrigin,
-      'fatherFullName': fatherFullName,
-      'fatherEthnic': fatherEthnic,
-      'fatherNationality': fatherNationality,
-      'motherFullName': motherFullName,
-      'motherEthnic': motherEthnic,
-      'motherNationality': motherNationality,
-      'declarerFullName': declarerFullName,
-      'declarerRelationship': declarerRelationship,
-      'dateOfRegistration': dateOfRegistration,
-      'placeOfRegistration': placeOfRegistration,
-    };
+  BirthCertificationModel(
+      {this.id,
+      this.fullName,
+      this.gender,
+      this.dateOfBirth,
+      this.dateOfBirthText,
+      this.placeOfBirth,
+      this.ethnic,
+      this.nationality,
+      this.placeOfOrigin,
+      this.fatherFullName,
+      this.fatherEthnic,
+      this.fatherNationality,
+      this.motherFullName,
+      this.motherEthnic,
+      this.motherNationality,
+      this.declarerFullName,
+      this.declarerRelationship,
+      this.dateOfRegistration,
+      this.placeOfRegistration});
+
+  BirthCertificationModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    fullName = json['fullName'];
+    gender = json['gender'];
+    dateOfBirth = json['dateOfBirth'];
+    dateOfBirthText = json['dateOfBirthText'];
+    placeOfBirth = json['placeOfBirth'];
+    ethnic = json['ethnic'];
+    nationality = json['nationality'];
+    placeOfOrigin = json['placeOfOrigin'];
+    fatherFullName = json['fatherFullName'];
+    fatherEthnic = json['fatherEthnic'];
+    fatherNationality = json['fatherNationality'];
+    motherFullName = json['motherFullName'];
+    motherEthnic = json['motherEthnic'];
+    motherNationality = json['motherNationality'];
+    declarerFullName = json['declarerFullName'];
+    declarerRelationship = json['declarerRelationship'];
+    dateOfRegistration = json['dateOfRegistration'];
+    placeOfRegistration = json['placeOfRegistration'];
   }
 
-  const BirthCertificationModel({
-    this.id,
-    this.fullName,
-    this.gender,
-    this.dateOfBirth,
-    this.dateOfBirthText,
-    this.placeOfBirth,
-    this.ethnic,
-    this.nationality,
-    this.placeOfOrigin,
-    this.fatherFullName,
-    this.fatherEthnic,
-    this.fatherNationality,
-    this.motherFullName,
-    this.motherEthnic,
-    this.motherNationality,
-    this.declarerFullName,
-    this.declarerRelationship,
-    this.dateOfRegistration,
-    this.placeOfRegistration,
-  });
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['fullName'] = fullName;
+    data['gender'] = gender;
+    data['dateOfBirth'] = dateOfBirth;
+    data['dateOfBirthText'] = dateOfBirthText;
+    data['placeOfBirth'] = placeOfBirth;
+    data['ethnic'] = ethnic;
+    data['nationality'] = nationality;
+    data['placeOfOrigin'] = placeOfOrigin;
+    data['fatherFullName'] = fatherFullName;
+    data['fatherEthnic'] = fatherEthnic;
+    data['fatherNationality'] = fatherNationality;
+    data['motherFullName'] = motherFullName;
+    data['motherEthnic'] = motherEthnic;
+    data['motherNationality'] = motherNationality;
+    data['declarerFullName'] = declarerFullName;
+    data['declarerRelationship'] = declarerRelationship;
+    data['dateOfRegistration'] = dateOfRegistration;
+    data['placeOfRegistration'] = placeOfRegistration;
+    return data;
+  }
 
   static BirthCertificationModel example() {
-    BirthCertificationModel exampleModel = const BirthCertificationModel(
+    BirthCertificationModel exampleModel = BirthCertificationModel(
       id: r'012345678',
       fullName: r'Nguyễn Văn A',
       gender: r'Nam',

@@ -9,11 +9,18 @@ import '../../../widgets/mobile.dart';
 
 @WidgetbookUseCase(name: 'Page', type: BirthCertificatePage)
 Widget birthCertificatePage(BuildContext context) {
-  return MaterialApp(home: BirthCertificatePage());
+  return MaterialApp(
+      home: BirthCertificatePage(
+    birthCertification: BirthCertificationModel.example(),
+  ));
 }
 
 class BirthCertificatePage extends StatefulWidget {
-  const BirthCertificatePage({Key? key}) : super(key: key);
+  final BirthCertificationModel birthCertification;
+  const BirthCertificatePage({
+    Key? key,
+    required this.birthCertification,
+  }) : super(key: key);
 
   @override
   State<BirthCertificatePage> createState() => _BirthCertificatePageState();
@@ -21,26 +28,8 @@ class BirthCertificatePage extends StatefulWidget {
 
 class _BirthCertificatePageState extends State<BirthCertificatePage> {
   bool isEditState = false;
-  bool isLoading = true;
+  bool isLoading = false;
   Map<String, String?> changedList = {};
-  BirthCertificationModel? birthCertification;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-        const Duration(
-          seconds: 5,
-        ), () {
-      if (isLoading) {
-        Navigator.maybePop(context);
-        setState(() {
-          birthCertification = BirthCertificationModel.example();
-          isLoading = false;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +89,7 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bCFullName,
-                  defaultValue: birthCertification?.fullName,
+                  defaultValue: widget.birthCertification.fullName,
                   changedValue: changedList['fullName'],
                   onChangeText: (value) {
                     setState(() {
@@ -108,11 +97,11 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.fullName != null && isEditState,
+                      widget.birthCertification.fullName != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcGender,
-                  defaultValue: birthCertification?.gender,
+                  defaultValue: widget.birthCertification.gender,
                   changedValue: changedList['gender'],
                   onChangeText: (value) {
                     setState(() {
@@ -120,47 +109,48 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.gender != null && isEditState,
+                      widget.birthCertification.gender != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcDateOfBirth,
-                  defaultValue: birthCertification?.dateOfBirth,
+                  defaultValue: widget.birthCertification.dateOfBirth,
                   changedValue: changedList['dateOfBirth'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['dateOfBirth'] = value;
                     });
                   },
-                  canEditable:
-                      birthCertification?.dateOfBirth != null && isEditState,
+                  canEditable: widget.birthCertification.dateOfBirth != null &&
+                      isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcDateOfBirthText,
-                  defaultValue: birthCertification?.dateOfBirthText,
+                  defaultValue: widget.birthCertification.dateOfBirthText,
                   changedValue: changedList['dateOfBirthText'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['dateOfBirthText'] = value;
                     });
                   },
-                  canEditable: birthCertification?.dateOfBirthText != null &&
-                      isEditState,
+                  canEditable:
+                      widget.birthCertification.dateOfBirthText != null &&
+                          isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcPlaceOfBirth,
-                  defaultValue: birthCertification?.placeOfBirth,
+                  defaultValue: widget.birthCertification.placeOfBirth,
                   changedValue: changedList['placeOfBirth'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['placeOfBirth'] = value;
                     });
                   },
-                  canEditable:
-                      birthCertification?.placeOfBirth != null && isEditState,
+                  canEditable: widget.birthCertification.placeOfBirth != null &&
+                      isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcEthnic,
-                  defaultValue: birthCertification?.ethnic,
+                  defaultValue: widget.birthCertification.ethnic,
                   changedValue: changedList['ethnic'],
                   onChangeText: (value) {
                     setState(() {
@@ -168,23 +158,23 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.ethnic != null && isEditState,
+                      widget.birthCertification.ethnic != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcNationality,
-                  defaultValue: birthCertification?.nationality,
+                  defaultValue: widget.birthCertification.nationality,
                   changedValue: changedList['nationality'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['nationality'] = value;
                     });
                   },
-                  canEditable:
-                      birthCertification?.nationality != null && isEditState,
+                  canEditable: widget.birthCertification.nationality != null &&
+                      isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcPlaceOfOrigin,
-                  defaultValue: birthCertification?.placeOfOrigin,
+                  defaultValue: widget.birthCertification.placeOfOrigin,
                   changedValue: changedList['placeOfOrigin'],
                   onChangeText: (value) {
                     setState(() {
@@ -192,23 +182,25 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.placeOfOrigin != null && isEditState,
+                      widget.birthCertification.placeOfOrigin != null &&
+                          isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcDateOfRegistration,
-                  defaultValue: birthCertification?.dateOfRegistration,
+                  defaultValue: widget.birthCertification.dateOfRegistration,
                   changedValue: changedList['dateOfRegistration'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['dateOfRegistration'] = value;
                     });
                   },
-                  canEditable: birthCertification?.dateOfRegistration != null &&
-                      isEditState,
+                  canEditable:
+                      widget.birthCertification.dateOfRegistration != null &&
+                          isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcPlaceOfRegistration,
-                  defaultValue: birthCertification?.placeOfRegistration,
+                  defaultValue: widget.birthCertification.placeOfRegistration,
                   changedValue: changedList['placeOfRegistration'],
                   onChangeText: (value) {
                     setState(() {
@@ -216,7 +208,7 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.placeOfRegistration != null &&
+                      widget.birthCertification.placeOfRegistration != null &&
                           isEditState,
                 ),
                 const Text(
@@ -233,7 +225,7 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bCFullName,
-                  defaultValue: birthCertification?.fatherFullName,
+                  defaultValue: widget.birthCertification.fatherFullName,
                   changedValue: changedList['fatherFullName'],
                   onChangeText: (value) {
                     setState(() {
@@ -241,31 +233,33 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.fatherFullName != null && isEditState,
+                      widget.birthCertification.fatherFullName != null &&
+                          isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcEthnic,
-                  defaultValue: birthCertification?.fatherEthnic,
+                  defaultValue: widget.birthCertification.fatherEthnic,
                   changedValue: changedList['fatherEthnic'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['fatherEthnic'] = value;
                     });
                   },
-                  canEditable:
-                      birthCertification?.fatherEthnic != null && isEditState,
+                  canEditable: widget.birthCertification.fatherEthnic != null &&
+                      isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcNationality,
-                  defaultValue: birthCertification?.fatherNationality,
+                  defaultValue: widget.birthCertification.fatherNationality,
                   changedValue: changedList['fatherNationality'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['fatherNationality'] = value;
                     });
                   },
-                  canEditable: birthCertification?.fatherNationality != null &&
-                      isEditState,
+                  canEditable:
+                      widget.birthCertification.fatherNationality != null &&
+                          isEditState,
                 ),
                 const Text(
                   TextPath.bcMotherInformation,
@@ -281,7 +275,7 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bCFullName,
-                  defaultValue: birthCertification?.motherFullName,
+                  defaultValue: widget.birthCertification.motherFullName,
                   changedValue: changedList['motherFullName'],
                   onChangeText: (value) {
                     setState(() {
@@ -289,31 +283,33 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.motherFullName != null && isEditState,
+                      widget.birthCertification.motherFullName != null &&
+                          isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcEthnic,
-                  defaultValue: birthCertification?.motherEthnic,
+                  defaultValue: widget.birthCertification.motherEthnic,
                   changedValue: changedList['motherEthnic'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['motherEthnic'] = value;
                     });
                   },
-                  canEditable:
-                      birthCertification?.motherEthnic != null && isEditState,
+                  canEditable: widget.birthCertification.motherEthnic != null &&
+                      isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcNationality,
-                  defaultValue: birthCertification?.motherNationality,
+                  defaultValue: widget.birthCertification.motherNationality,
                   changedValue: changedList['motherNationality'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['motherNationality'] = value;
                     });
                   },
-                  canEditable: birthCertification?.motherNationality != null &&
-                      isEditState,
+                  canEditable:
+                      widget.birthCertification.motherNationality != null &&
+                          isEditState,
                 ),
                 const Text(
                   TextPath.bcDeclarerInformation,
@@ -329,19 +325,20 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bCFullName,
-                  defaultValue: birthCertification?.declarerFullName,
+                  defaultValue: widget.birthCertification.declarerFullName,
                   changedValue: changedList['declarerFullName'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['declarerFullName'] = value;
                     });
                   },
-                  canEditable: birthCertification?.declarerFullName != null &&
-                      isEditState,
+                  canEditable:
+                      widget.birthCertification.declarerFullName != null &&
+                          isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.bcRelationship,
-                  defaultValue: birthCertification?.declarerRelationship,
+                  defaultValue: widget.birthCertification.declarerRelationship,
                   changedValue: changedList['declarerRelationship'],
                   onChangeText: (value) {
                     setState(() {
@@ -349,7 +346,7 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     });
                   },
                   canEditable:
-                      birthCertification?.declarerRelationship != null &&
+                      widget.birthCertification.declarerRelationship != null &&
                           isEditState,
                 ),
                 Visibility(
