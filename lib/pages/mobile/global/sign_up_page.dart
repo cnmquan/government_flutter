@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:goverment_flutter_system/utils/assets.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/routing.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: SignUpPage)
+Widget signUpPageGlobal(BuildContext context) =>
+    MaterialApp(home: SignUpPage());
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);

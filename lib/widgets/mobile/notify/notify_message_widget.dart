@@ -1,7 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:goverment_flutter_system/utils/assets.dart';
+import 'package:goverment_flutter_system/utils/translation/text_path.dart';
 import 'package:lottie/lottie.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../mobile.dart';
+
+@WidgetbookUseCase(name: 'Not found', type: NotifyMessageWidget)
+Widget notFound(BuildContext context) {
+  return NotifyMessageWidget(
+    width: 500,
+    height: 240,
+    fontSize: 32,
+    animatedPath: JsonAssetPath.notFound,
+    title: TextPath.notFoundTitle,
+    message: TextPath.notFoundMessage,
+  );
+}
+
+@WidgetbookUseCase(name: 'Success', type: NotifyMessageWidget)
+Widget success(BuildContext context) {
+  return NotifyMessageWidget(
+    width: 500,
+    height: 240,
+    fontSize: 24,
+    animatedPath: JsonAssetPath.success,
+    title: r'Thông báo',
+    message: r'Chúng tôi đã ghi nhận góp ý của bạn và đang xử lý.',
+  );
+}
+
+@WidgetbookUseCase(name: 'Coming soon', type: NotifyMessageWidget)
+Widget comingSoon(BuildContext context) {
+  return NotifyMessageWidget(
+    width: 500,
+    height: 240,
+    fontSize: 24,
+    animatedPath: JsonAssetPath.comingSoon,
+    title: TextPath.upComingTitle,
+    message: TextPath.upComingMessage,
+  );
+}
 
 class NotifyMessageWidget extends StatelessWidget {
   final String title;

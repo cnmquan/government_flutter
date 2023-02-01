@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../models.dart';
 import '../../../utils/assets.dart';
 import '../../../utils/translation.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: IdCardPage)
+Widget idCardPage(BuildContext) => MaterialApp(home: IdCardPage());
 
 class IdCardPage extends StatefulWidget {
   const IdCardPage({Key? key}) : super(key: key);

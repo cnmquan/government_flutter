@@ -1,5 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+
+@WidgetbookUseCase(name: 'Small', type: CircleImageWidget)
+Widget smallCircleImageWidget(BuildContext context) {
+  return CircleImageWidget(
+    borderRadius: 12,
+    size: 10,
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+  );
+}
+
+@WidgetbookUseCase(name: 'Large', type: CircleImageWidget)
+Widget largeCircleImageWidget(BuildContext context) {
+  return CircleImageWidget(
+    borderRadius: 12,
+    size: 40,
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+  );
+}
 
 class CircleImageWidget extends StatelessWidget {
   final double size;

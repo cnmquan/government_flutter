@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:goverment_flutter_system/utils/assets.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/routing.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: ForgetPasswordPage)
+Widget forgetPasswordPageGlobal(BuildContext context) =>
+    MaterialApp(home: ForgetPasswordPage());
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({Key? key}) : super(key: key);

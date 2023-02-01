@@ -1,5 +1,56 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+
+@WidgetbookUseCase(name: 'Short title', type: ImageBoxTextWidget)
+Widget shortTitleImageBoxTextWidget(BuildContext context) {
+  return ImageBoxTextWidget(
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+    title: 'Short title',
+    size: 240,
+  );
+}
+
+@WidgetbookUseCase(name: 'Long title', type: ImageBoxTextWidget)
+Widget longTitleImageBoxTextWidget(BuildContext context) {
+  return ImageBoxTextWidget(
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+    title: 'This title is very very very long',
+    size: 240,
+  );
+}
+
+@WidgetbookUseCase(name: 'Small size', type: ImageBoxTextWidget)
+Widget smallSizeImageBoxTextWidget(BuildContext context) {
+  return ImageBoxTextWidget(
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+    title: 'Title goes here',
+    size: 100,
+  );
+}
+
+@WidgetbookUseCase(name: 'Medium size', type: ImageBoxTextWidget)
+Widget mediumSizeImageBoxTextWidget(BuildContext context) {
+  return ImageBoxTextWidget(
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+    title: 'Title goes here',
+    size: 240,
+  );
+}
+
+@WidgetbookUseCase(name: 'Large size', type: ImageBoxTextWidget)
+Widget largeSizeImageBoxTextWidget(BuildContext context) {
+  return ImageBoxTextWidget(
+    imagePath:
+        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80',
+    title: 'Title goes here',
+    size: 500,
+  );
+}
 
 class ImageBoxTextWidget extends StatelessWidget {
   final double size;

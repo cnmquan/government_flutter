@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/assets.dart';
 import '../../../utils/translation.dart';
 import '../../../widgets/web.dart';
+
+@WidgetbookUseCase(name: 'Page', type: SearchInformationPage)
+Widget searchInformationPage(BuildContext context) =>
+    MaterialApp(home: SearchInformationPage());
 
 class SearchInformationPage extends StatelessWidget {
   const SearchInformationPage({Key? key}) : super(key: key);
