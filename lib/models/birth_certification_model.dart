@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:faker_dart/faker_dart.dart';
+
 class BirthCertificationModel {
   final String? id;
   final String? fullName;
@@ -18,6 +22,30 @@ class BirthCertificationModel {
   final String? declarerRelationship;
   final String? dateOfRegistration;
   final String? placeOfRegistration;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'fullName': fullName,
+      'gender': gender,
+      'dateOfBirth': dateOfBirth,
+      'dateOfBirthText': dateOfBirthText,
+      'placeOfBirth': placeOfBirth,
+      'ethnic': ethnic,
+      'nationality': nationality,
+      'placeOfOrigin': placeOfOrigin,
+      'fatherFullName': fatherFullName,
+      'fatherEthnic': fatherEthnic,
+      'fatherNationality': fatherNationality,
+      'motherFullName': motherFullName,
+      'motherEthnic': motherEthnic,
+      'motherNationality': motherNationality,
+      'declarerFullName': declarerFullName,
+      'declarerRelationship': declarerRelationship,
+      'dateOfRegistration': dateOfRegistration,
+      'placeOfRegistration': placeOfRegistration,
+    };
+  }
 
   const BirthCertificationModel({
     this.id,
@@ -62,6 +90,33 @@ class BirthCertificationModel {
       declarerRelationship: r'Cha đẻ',
       dateOfRegistration: r'1/2/2001',
       placeOfRegistration: r'Ủy ban nhân dân Thành phố Hồ Chí Minh',
+    );
+    return exampleModel;
+  }
+
+  static BirthCertificationModel createRandomBirthCertification() {
+    final faker = Faker.instance;
+    faker.setLocale(FakerLocaleType.vi);
+    BirthCertificationModel exampleModel = BirthCertificationModel(
+      id: '${Random().nextDouble() * 1000000000}',
+      fullName: faker.name.fullName(),
+      gender: Random().nextBool() ? 'Nam' : 'Nữ',
+      dateOfBirth: faker.date.month(),
+      dateOfBirthText: r'Ngày một tháng một năm hai nghìn lẻ một',
+      placeOfBirth: faker.company.companyName(),
+      ethnic: r'Kinh',
+      nationality: r'Việt Nam',
+      placeOfOrigin: faker.address.cityName(),
+      fatherFullName: faker.name.fullName(),
+      fatherEthnic: r'Kinh',
+      fatherNationality: r'Việt Nam',
+      motherFullName: faker.name.fullName(),
+      motherEthnic: r'Kinh',
+      motherNationality: r'Việt Nam',
+      declarerFullName: faker.name.fullName(),
+      declarerRelationship: Random().nextBool() ? r'Dì ruột' : r'Cậu ruột',
+      dateOfRegistration: faker.date.month(),
+      placeOfRegistration: 'Ủy ban nhân dân ${faker.address.cityName()}',
     );
     return exampleModel;
   }

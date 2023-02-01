@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:goverment_flutter_system/logic/auth_controller.dart';
 import 'package:goverment_flutter_system/utils/assets.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../utils/routing.dart';
 import '../../../widgets/mobile.dart';
@@ -20,54 +19,11 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   String? phoneNumber;
+  String? password;
   String? errorPhoneNumber;
-  String? errorMessage;
-  FirebaseAuth auth = FirebaseAuth.instance;
-  bool loading = false;
-
-  Future<void> verifyPhone() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+84$phoneNumber',
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        setState(() {
-          loading = false;
-        });
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        setState(() {
-          loading = false;
-        });
-        errorMessage = e.message;
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        setState(() {
-          loading = false;
-        });
-        Navigator.of(context).pushNamed(
-          RoutingMobilePath.verifyCode,
-          arguments: verificationId,
-        );
-      },
-      timeout: const Duration(seconds: 20),
-      codeAutoRetrievalTimeout: (String verificationId) {
-        setState(() {
-          loading = false;
-        });
-        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-          _showCustomDialog(context);
-        });
-        debugPrint(verificationId);
-      },
-    );
-  }
-
+  String? errorPassword;
   @override
   Widget build(BuildContext context) {
-    if (loading) {
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-        _showLoadingDialog(context);
-      });
-    }
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -108,8 +64,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               AuthTextFieldWidget(
                 label: r'Số điện thoại',
-                hint: r'123456789',
-                prefix: r'+84',
+                hint: r'0123456789',
                 onChange: (value) {
                   phoneNumber = value;
                 },
@@ -119,11 +74,46 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(
                 height: 12,
               ),
+              AuthTextFieldWidget(
+                label: r'Mật khẩu',
+                onChange: (value) {
+                  password = value;
+                },
+                isPassword: true,
+                error: errorPassword,
+              ),
               const SizedBox(
                 height: 8,
               ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RoutingMobilePath.forgetPassword,
+                  );
+                },
+                child: const SizedBox(
+                  width: double.maxFinite,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: Text(
+                      r'Quên mật khẩu',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                        color: Colors.green,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
               CustomButtonWidget(
-                title: r'Gửi mã OTP',
+                title: r'Đăng nhập',
                 thumbnail: Colors.blue,
                 width: 200,
                 height: 48,
@@ -133,15 +123,39 @@ class _SignInPageState extends State<SignInPage> {
                   } else {
                     errorPhoneNumber = null;
                   }
+                  if (password == null || password!.length < 4) {
+                    errorPassword = r'Mật khẩu không đươc nhỏ hơn 4 ký tự';
+                  } else {
+                    errorPassword = null;
+                  }
+
                   setState(() {});
-                  if (errorPhoneNumber != null) {
+                  if (errorPassword != null || errorPhoneNumber != null) {
                     return;
                   } else {
-                    setState(() {
-                      loading = true;
+                    AuthController()
+                        .signInResident(
+                            phoneNumber: phoneNumber!, password: password!)
+                        .then((value) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          RoutingMobilePath.home, (route) => false);
                     });
-                    verifyPhone();
                   }
+                },
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              CustomButtonWidget(
+                title: r'Đăng ký',
+                thumbnail: Colors.orange,
+                width: 200,
+                height: 48,
+                onPress: () {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RoutingMobilePath.signUp,
+                  );
                 },
               ),
             ],
@@ -149,36 +163,5 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
-  }
-
-  _showCustomDialog(BuildContext context) async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const NotifyMessageWidget(
-              animatedPath: JsonAssetPath.failed,
-              title: r'Báo lỗi',
-              message:
-                  r'Hiện tại hệ thống không thể gửi mã xác thực. Hi vọng bạn có thể chờ đợi và sử dụng sau.',
-            ),
-          );
-        }).then((value) => {Navigator.maybePop(context)});
-  }
-
-  _showLoadingDialog(BuildContext context) async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const LoadingWidget(),
-          );
-        });
   }
 }
