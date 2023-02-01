@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:goverment_flutter_system/utils/assets.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../utils/routing.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: SignInPage)
+Widget signInPageGlobal(BuildContext context) =>
+    MaterialApp(home: SignInPage());
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);

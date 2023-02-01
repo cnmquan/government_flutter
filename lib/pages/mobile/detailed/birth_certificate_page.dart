@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../models.dart';
 import '../../../utils/assets.dart';
 import '../../../utils/translation.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: BirthCertificatePage)
+Widget birthCertificatePage(BuildContext context) {
+  return MaterialApp(home: BirthCertificatePage());
+}
 
 class BirthCertificatePage extends StatefulWidget {
   const BirthCertificatePage({Key? key}) : super(key: key);

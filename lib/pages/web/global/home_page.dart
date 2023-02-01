@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/assets.dart';
 import '../../../utils/routing.dart';
 import '../../../utils/translation.dart';
 import '../../../widgets/web.dart';
+
+@WidgetbookUseCase(name: 'Page', type: HomePage)
+Widget homePage(BuildContext context) => MaterialApp(home: HomePage());
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

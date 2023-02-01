@@ -1,4 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+
+@WidgetbookUseCase(name: 'Editable Textfield', type: CustomTextFieldWidget)
+Widget editableTextField(BuildContext context) {
+  return MaterialApp(
+    home: CustomTextFieldWidget(
+      label: 'Text field',
+      defaultValue: 'UIT 2k19',
+      canEditable: true,
+    ),
+  );
+}
+
+@WidgetbookUseCase(name: 'Not Editable Textfield', type: CustomTextFieldWidget)
+Widget notEditableTextField(BuildContext context) {
+  return MaterialApp(
+    home: CustomTextFieldWidget(
+      label: 'Text field',
+      defaultValue: 'UIT 2k19',
+      canEditable: false,
+    ),
+  );
+}
 
 class CustomTextFieldWidget extends StatefulWidget {
   final String label;
