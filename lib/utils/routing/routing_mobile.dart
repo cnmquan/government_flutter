@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goverment_flutter_system/models.dart';
 
 import '../../pages/mobile.dart';
 import 'routing_mobile_path.dart';
@@ -13,14 +14,20 @@ Route<dynamic> routeMobileController(RouteSettings settings) {
         builder: (context) => const HomePage(),
       );
     case RoutingMobilePath.idCard:
+      final idCard = settings.arguments as IdCardModel;
       return MaterialPageRoute(
         settings: settings,
-        builder: (context) => const IdCardPage(),
+        builder: (context) => IdCardPage(
+          idCard: idCard,
+        ),
       );
     case RoutingMobilePath.birthCertification:
+      final birthCertification = settings.arguments as BirthCertificationModel;
       return MaterialPageRoute(
         settings: settings,
-        builder: (context) => const BirthCertificatePage(),
+        builder: (context) => BirthCertificatePage(
+          birthCertification: birthCertification,
+        ),
       );
     case RoutingMobilePath.registrationBook:
       return MaterialPageRoute(

@@ -8,10 +8,17 @@ import '../../../utils/translation.dart';
 import '../../../widgets/mobile.dart';
 
 @WidgetbookUseCase(name: 'Page', type: IdCardPage)
-Widget idCardPage(BuildContext) => MaterialApp(home: IdCardPage());
+Widget idCardPage(BuildContext) => MaterialApp(
+        home: IdCardPage(
+      idCard: IdCardModel.example(),
+    ));
 
 class IdCardPage extends StatefulWidget {
-  const IdCardPage({Key? key}) : super(key: key);
+  final IdCardModel idCard;
+  const IdCardPage({
+    Key? key,
+    required this.idCard,
+  }) : super(key: key);
 
   @override
   State<IdCardPage> createState() => _IdCardPageState();
@@ -19,26 +26,8 @@ class IdCardPage extends StatefulWidget {
 
 class _IdCardPageState extends State<IdCardPage> {
   bool isEditState = false;
-  bool isLoading = true;
+  bool isLoading = false;
   Map<String, String?> changedList = {};
-  IdCardModel? idCard;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-        const Duration(
-          seconds: 5,
-        ), () {
-      if (isLoading) {
-        Navigator.maybePop(context);
-        setState(() {
-          idCard = IdCardModel.example();
-          isLoading = false;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,124 +87,128 @@ class _IdCardPageState extends State<IdCardPage> {
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardNumber,
-                  defaultValue: idCard?.idNumber,
+                  defaultValue: widget.idCard.idNumber,
                   changedValue: changedList['idNumber'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['idNumber'] = value;
                     });
                   },
-                  canEditable: idCard?.idNumber != null && isEditState,
+                  canEditable: widget.idCard.idNumber != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardFullName,
-                  defaultValue: idCard?.fullName,
+                  defaultValue: widget.idCard.fullName,
                   changedValue: changedList['fullName'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['fullName'] = value;
                     });
                   },
-                  canEditable: idCard?.fullName != null && isEditState,
+                  canEditable: widget.idCard.fullName != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardDateOfBirth,
-                  defaultValue: idCard?.dateOfBirth,
+                  defaultValue: widget.idCard.dateOfBirth,
                   changedValue: changedList['dateOfBirth'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['dateOfBirth'] = value;
                     });
                   },
-                  canEditable: idCard?.dateOfBirth != null && isEditState,
+                  canEditable: widget.idCard.dateOfBirth != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardGender,
-                  defaultValue: idCard?.gender,
+                  defaultValue: widget.idCard.gender,
                   changedValue: changedList['gender'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['gender'] = value;
                     });
                   },
-                  canEditable: idCard?.gender != null && isEditState,
+                  canEditable: widget.idCard.gender != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardNationality,
-                  defaultValue: idCard?.nationality,
+                  defaultValue: widget.idCard.nationality,
                   changedValue: changedList['nationality'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['nationality'] = value;
                     });
                   },
-                  canEditable: idCard?.nationality != null && isEditState,
+                  canEditable: widget.idCard.nationality != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardPlaceOfOrigin,
-                  defaultValue: idCard?.placeOfOrigin,
+                  defaultValue: widget.idCard.placeOfOrigin,
                   changedValue: changedList['placeOfOrigin'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['placeOfOrigin'] = value;
                     });
                   },
-                  canEditable: idCard?.placeOfOrigin != null && isEditState,
+                  canEditable:
+                      widget.idCard.placeOfOrigin != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardPlaceOfResidence,
-                  defaultValue: idCard?.placeOfResidence,
+                  defaultValue: widget.idCard.placeOfResidence,
                   changedValue: changedList['placeOfResidence'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['placeOfResidence'] = value;
                     });
                   },
-                  canEditable: idCard?.placeOfResidence != null && isEditState,
+                  canEditable:
+                      widget.idCard.placeOfResidence != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardEthnic,
-                  defaultValue: idCard?.ethnic,
+                  defaultValue: widget.idCard.ethnic,
                   changedValue: changedList['ethnic'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['ethnic'] = value;
                     });
                   },
-                  canEditable: idCard?.ethnic != null && isEditState,
+                  canEditable: widget.idCard.ethnic != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardReligion,
-                  defaultValue: idCard?.religion,
+                  defaultValue: widget.idCard.religion,
                   changedValue: changedList['religion'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['religion'] = value;
                     });
                   },
-                  canEditable: idCard?.religion != null && isEditState,
+                  canEditable: widget.idCard.religion != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardDateOfExpiry,
-                  defaultValue: idCard?.dateOfExpiry,
+                  defaultValue: widget.idCard.dateOfExpiry,
                   changedValue: changedList['dateOfExpiry'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['dateOfExpiry'] = value;
                     });
                   },
-                  canEditable: idCard?.dateOfExpiry != null && isEditState,
+                  canEditable:
+                      widget.idCard.dateOfExpiry != null && isEditState,
                 ),
                 CustomTextFieldWidget(
                   label: TextPath.idCardPlaceOfGranted,
-                  defaultValue: idCard?.placeOfGranted,
+                  defaultValue: widget.idCard.placeOfGranted,
                   changedValue: changedList['placeOfGranted'],
                   onChangeText: (value) {
                     setState(() {
                       changedList['placeOfGranted'] = value;
                     });
                   },
-                  canEditable: idCard?.placeOfGranted != null && isEditState,
+                  canEditable:
+                      widget.idCard.placeOfGranted != null && isEditState,
                 ),
                 Visibility(
                   visible: !isEditState,

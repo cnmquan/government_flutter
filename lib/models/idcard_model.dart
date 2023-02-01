@@ -1,63 +1,78 @@
 import 'dart:math';
 
-import 'package:equatable/equatable.dart';
 import 'package:faker_dart/faker_dart.dart';
 
-class IdCardModel extends Equatable {
-  final String? image;
-  final String? id;
-  final String? idNumber;
-  final String? fullName;
-  final String? dateOfBirth;
-  final String? gender;
-  final String? nationality;
-  final String? placeOfOrigin;
-  final String? placeOfResidence;
-  final String? dateOfExpiry;
-  final String? personalIdentification;
-  final String? dateOfGranted;
-  final String? placeOfGranted;
-  final String? ethnic;
-  final String? religion;
+class IdCardModel {
+  String? fullName;
+  String? idNumber;
+  String? dateOfBirth;
+  String? dateOfExpiry;
+  String? dateOfGranted;
+  String? gender;
+  String? nationality;
+  String? personalIdentification;
+  String? placeOfGranted;
+  String? placeOfOrigin;
+  String? placeOfResidence;
+  String? ethnic;
+  String? religion;
+  String? image;
 
-  const IdCardModel({
-    this.id,
-    this.idNumber,
+  IdCardModel({
     this.fullName,
+    this.idNumber,
     this.dateOfBirth,
+    this.dateOfExpiry,
+    this.dateOfGranted,
     this.gender,
     this.nationality,
+    this.personalIdentification,
+    this.placeOfGranted,
     this.placeOfOrigin,
     this.placeOfResidence,
-    this.dateOfExpiry,
-    this.personalIdentification,
-    this.dateOfGranted,
-    this.placeOfGranted,
     this.ethnic,
     this.religion,
     this.image,
   });
 
+  IdCardModel.fromJson(Map<String, dynamic> json) {
+    fullName = json['fullName'];
+    idNumber = json['idNumber'];
+    dateOfBirth = json['dateOfBirth'];
+    dateOfExpiry = json['dateOfExpiry'];
+    dateOfGranted = json['dateOfGranted'];
+    gender = json['gender'];
+    nationality = json['nationality'];
+    personalIdentification = json['personalIdentification'];
+    placeOfGranted = json['placeOfGranted'];
+    placeOfOrigin = json['placeOfOrigin'];
+    placeOfResidence = json['placeOfResidence'];
+    ethnic = json['ethnic'];
+    religion = json['religion'];
+    image = json['image'];
+  }
+
   Map<String, dynamic> toJson() {
-    return {
-      'fullName': fullName,
-      'idNumber': idNumber,
-      'dateOfBirth': dateOfBirth,
-      'dateOfExpiry': dateOfExpiry,
-      'dateOfGranted': dateOfGranted,
-      'gender': gender,
-      'nationality': nationality,
-      'personalIdentification': personalIdentification,
-      'placeOfGranted': placeOfGranted,
-      'placeOfOrigin': placeOfOrigin,
-      'placeOfResidence': placeOfResidence,
-      'ethnic': ethnic,
-      'religion': religion,
-    };
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['fullName'] = fullName;
+    data['idNumber'] = idNumber;
+    data['dateOfBirth'] = dateOfBirth;
+    data['dateOfExpiry'] = dateOfExpiry;
+    data['dateOfGranted'] = dateOfGranted;
+    data['gender'] = gender;
+    data['nationality'] = nationality;
+    data['personalIdentification'] = personalIdentification;
+    data['placeOfGranted'] = placeOfGranted;
+    data['placeOfOrigin'] = placeOfOrigin;
+    data['placeOfResidence'] = placeOfResidence;
+    data['ethnic'] = ethnic;
+    data['religion'] = religion;
+    data['image'] = image;
+    return data;
   }
 
   static IdCardModel example() {
-    IdCardModel exampleModel = const IdCardModel(
+    IdCardModel exampleModel = IdCardModel(
       fullName: r'Nguyễn Văn A',
       idNumber: r'123456789',
       dateOfBirth: r'1/1/1990',
@@ -75,12 +90,6 @@ class IdCardModel extends Equatable {
     );
     return exampleModel;
   }
-
-  @override
-  List<Object?> get props => [];
-
-  @override
-  bool? get stringify => true;
 
   static IdCardModel createRandomIdCard() {
     final faker = Faker.instance;
