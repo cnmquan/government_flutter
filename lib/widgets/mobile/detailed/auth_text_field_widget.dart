@@ -1,4 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+
+@WidgetbookUseCase(name: 'Password', type: AuthTextFieldWidget)
+Widget password(BuildContext context) {
+  return MaterialApp(
+    home: const AuthTextFieldWidget(
+      label: 'Password',
+      isPassword: true,
+    ),
+  );
+}
+
+@WidgetbookUseCase(name: 'Phone Number', type: AuthTextFieldWidget)
+Widget phoneNumber(BuildContext context) {
+  return MaterialApp(
+    home: const AuthTextFieldWidget(
+      label: 'Phone number',
+      isPhoneNumber: true,
+    ),
+  );
+}
+
+@WidgetbookUseCase(name: 'Default', type: AuthTextFieldWidget)
+Widget defaultTextField(BuildContext context) {
+  return MaterialApp(
+    home: const AuthTextFieldWidget(
+      label: 'Text',
+    ),
+  );
+}
 
 class AuthTextFieldWidget extends StatefulWidget {
   final String label;

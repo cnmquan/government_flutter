@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/assets.dart';
+
+@WidgetbookUseCase(name: 'Loading', type: LoadingWidget)
+Widget loadingWidget(BuildContext context) => LoadingWidget();
 
 class LoadingWidget extends StatelessWidget {
   final double size;

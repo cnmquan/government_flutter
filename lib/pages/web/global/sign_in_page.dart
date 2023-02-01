@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:goverment_flutter_system/utils/routing.dart';
 import 'package:goverment_flutter_system/widgets/web.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/assets.dart';
+
+@WidgetbookUseCase(name: 'Page', type: SignInPage)
+Widget signInPage(BuildContext context) => MaterialApp(home: SignInPage());
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);

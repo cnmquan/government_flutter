@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/assets.dart';
 import '../../../utils/translation.dart';
 import '../../../widgets/web.dart';
+
+@WidgetbookUseCase(name: 'Page', type: ManageEmployeePage)
+Widget manageEmployeePage(BuildContext context) =>
+    MaterialApp(home: ManageEmployeePage());
 
 class ManageEmployeePage extends StatelessWidget {
   const ManageEmployeePage({Key? key}) : super(key: key);

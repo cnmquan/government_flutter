@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/assets.dart';
 import '../../../utils/translation.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: RequestPaperPage)
+Widget requestPaperPage(BuildContext context) =>
+    MaterialApp(home: RequestPaperPage());
 
 class RequestPaperPage extends StatelessWidget {
   const RequestPaperPage({Key? key}) : super(key: key);

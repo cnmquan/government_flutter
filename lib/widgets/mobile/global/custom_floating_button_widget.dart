@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+
+@WidgetbookUseCase(name: 'FloatingActionButton', type: FloatingActionButton)
+CustomFloatingButtonWidget customFloatingActionButtonWidget(
+    BuildContext context) {
+  return CustomFloatingButtonWidget();
+}
 
 class CustomFloatingButtonWidget extends StatelessWidget {
   final bool isEditState;

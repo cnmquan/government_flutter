@@ -1,4 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+
+@WidgetbookUseCase(name: 'Short title', type: CustomButtonWidget)
+Widget shortTitleCustomButtonWidget(BuildContext context) {
+  return CustomButtonWidget(
+    title: 'Short',
+    thumbnail: Colors.blue,
+    onPress: () {},
+  );
+}
+
+@WidgetbookUseCase(name: 'Long title', type: CustomButtonWidget)
+Widget longTitleCustomButtonWidget(BuildContext context) {
+  return CustomButtonWidget(
+    title: 'Long',
+    thumbnail: Colors.blue,
+    onPress: () {},
+  );
+}
 
 class CustomButtonWidget extends StatelessWidget {
   final String title;

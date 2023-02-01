@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:goverment_flutter_system/logic/auth_controller.dart';
 import 'package:goverment_flutter_system/utils/assets.dart';
+import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../utils/routing.dart';
 import '../../../widgets/mobile.dart';
+
+@WidgetbookUseCase(name: 'Page', type: SignInPage)
+Widget signInPageGlobal(BuildContext context) =>
+    MaterialApp(home: SignInPage());
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -113,9 +118,7 @@ class _SignInPageState extends State<SignInPage> {
                 width: 200,
                 height: 48,
                 onPress: () {
-                  if (phoneNumber == null ||
-                      phoneNumber!.length > 13 ||
-                      phoneNumber!.length < 8) {
+                  if (phoneNumber == null) {
                     errorPhoneNumber = r'Số điện thoại không đúng định dạng';
                   } else {
                     errorPhoneNumber = null;
