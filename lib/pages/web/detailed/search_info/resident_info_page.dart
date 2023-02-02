@@ -1,22 +1,33 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:goverment_flutter_system/models.dart';
 
 import '../../../../utils/assets.dart';
 import '../../../../utils/routing.dart';
 import '../../../../widgets/web.dart';
 
 class ResidentInfoPage extends StatelessWidget {
-  final String? residentId;
+  final ResidentModel? resident;
   const ResidentInfoPage({
     Key? key,
-    this.residentId,
+    this.resident,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    String imagePath =
-        'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=466&q=80';
+    if (resident == null) {
+      return const TemplateWidget(
+          child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        child: NotifyMessageWidget(
+          title: r'Đã xảy ra lỗi',
+          message:
+              r'Hệ thống truy xuất dữ liệu có vấn đề. Vui lòng thử lại sau.',
+          animatedPath: JsonAssetPath.failed,
+        ),
+      ));
+    }
     return TemplateWidget(
       isSignIn: true,
       child: Padding(
@@ -44,7 +55,7 @@ class ResidentInfoPage extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: CachedNetworkImage(
-                        imageUrl: imagePath,
+                        imageUrl: resident!.idCardModel!.image!,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
                         errorWidget: (context, url, error) =>
@@ -65,14 +76,14 @@ class ResidentInfoPage extends StatelessWidget {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        SizedBox(
+                      children: [
+                        const SizedBox(
                           height: 8,
                         ),
                         Text.rich(
                           TextSpan(
                             children: <InlineSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: r'Họ và tên: ',
                                 style: TextStyle(
                                   fontSize: 24,
@@ -80,8 +91,8 @@ class ResidentInfoPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: r'Nguyễn Văn A',
-                                style: TextStyle(
+                                text: resident?.idCardModel?.fullName,
+                                style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -89,13 +100,13 @@ class ResidentInfoPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text.rich(
                           TextSpan(
                             children: <InlineSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: r'ID: ',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -103,8 +114,8 @@ class ResidentInfoPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: r'123456789abc',
-                                style: TextStyle(
+                                text: resident?.idCardModel?.idNumber,
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -112,13 +123,13 @@ class ResidentInfoPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text.rich(
                           TextSpan(
                             children: <InlineSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: r'Ngày sinh: ',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -126,8 +137,9 @@ class ResidentInfoPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: r'01/01/2001',
-                                style: TextStyle(
+                                text: resident
+                                    ?.birthCertificationModel?.dateOfBirth,
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -135,13 +147,13 @@ class ResidentInfoPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text.rich(
                           TextSpan(
                             children: <InlineSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: r'Địa chỉ thường trú: ',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -149,8 +161,8 @@ class ResidentInfoPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: r'Ấp 1, xã Long Xuyên, Việt Nam',
-                                style: TextStyle(
+                                text: resident?.idCardModel?.placeOfResidence,
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -158,7 +170,7 @@ class ResidentInfoPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                       ],
@@ -181,7 +193,7 @@ class ResidentInfoPage extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         RoutingWebPath.idCard,
-                        arguments: '123456',
+                        arguments: resident?.idCardModel,
                       );
                     },
                     size: 240,
@@ -192,7 +204,7 @@ class ResidentInfoPage extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         RoutingWebPath.birthCertificate,
-                        arguments: '123456',
+                        arguments: resident?.birthCertificationModel,
                       );
                     },
                     size: 240,
