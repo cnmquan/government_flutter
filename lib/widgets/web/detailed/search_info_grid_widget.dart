@@ -19,7 +19,7 @@ class SearchInfoGridWidget {
     PlutoColumn(
       title: r'Ngày sinh',
       field: 'dateOfBirth',
-      type: PlutoColumnType.date(),
+      type: PlutoColumnType.text(),
       readOnly: true,
       minWidth: 160,
     ),
@@ -42,7 +42,7 @@ class SearchInfoGridWidget {
   static PlutoRow getRowByValue({
     String? id,
     String? name,
-    DateTime? dateOfBirth,
+    String? dateOfBirth,
     String? place,
     int? paperNumber,
   }) {

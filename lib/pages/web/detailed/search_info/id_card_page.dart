@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../../../models.dart';
+import '../../../../utils/assets.dart';
 import '../../../../utils/translation.dart';
 import '../../../../widgets/web.dart';
 
 class IdCardPage extends StatefulWidget {
-  final String? idCardId;
+  final IdCardModel? idCard;
   const IdCardPage({
     Key? key,
-    this.idCardId,
+    this.idCard,
   }) : super(key: key);
 
   @override
@@ -18,29 +19,23 @@ class IdCardPage extends StatefulWidget {
 
 class _IdCardPageState extends State<IdCardPage> {
   bool isEditState = false;
-  bool isLoading = true;
-  IdCardModel? idCard;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-        const Duration(
-          seconds: 5,
-        ), () {
-      if (isLoading) {
-        Navigator.maybePop(context);
-        setState(() {
-          idCard = IdCardModel.example();
-          isLoading = false;
-        });
-      }
-    });
-  }
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    if (widget.idCard == null) {
+      return const TemplateWidget(
+          child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        child: NotifyMessageWidget(
+          title: r'Đã xảy ra lỗi',
+          message:
+              r'Hệ thống truy xuất dữ liệu có vấn đề. Vui lòng thử lại sau.',
+          animatedPath: JsonAssetPath.failed,
+        ),
+      ));
+    }
     if (isLoading) {
       SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         _showLoadingDialog(context);
@@ -74,7 +69,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardNumber,
-                      defaultValue: idCard?.idNumber,
+                      defaultValue: widget.idCard?.idNumber,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -85,7 +80,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardFullName,
-                      defaultValue: idCard?.fullName,
+                      defaultValue: widget.idCard?.fullName,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -96,7 +91,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardDateOfBirth,
-                      defaultValue: idCard?.dateOfBirth,
+                      defaultValue: widget.idCard?.dateOfBirth,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -107,7 +102,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardGender,
-                      defaultValue: idCard?.gender,
+                      defaultValue: widget.idCard?.gender,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -118,7 +113,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardNationality,
-                      defaultValue: idCard?.nationality,
+                      defaultValue: widget.idCard?.nationality,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -129,7 +124,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardPlaceOfOrigin,
-                      defaultValue: idCard?.placeOfOrigin,
+                      defaultValue: widget.idCard?.placeOfOrigin,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -140,7 +135,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardPlaceOfResidence,
-                      defaultValue: idCard?.placeOfResidence,
+                      defaultValue: widget.idCard?.placeOfResidence,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -151,7 +146,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardEthnic,
-                      defaultValue: idCard?.ethnic,
+                      defaultValue: widget.idCard?.ethnic,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -162,7 +157,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardReligion,
-                      defaultValue: idCard?.religion,
+                      defaultValue: widget.idCard?.religion,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -173,7 +168,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardDateOfExpiry,
-                      defaultValue: idCard?.dateOfExpiry,
+                      defaultValue: widget.idCard?.dateOfExpiry,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -185,7 +180,7 @@ class _IdCardPageState extends State<IdCardPage> {
                         : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.idCardPlaceOfGranted,
-                      defaultValue: idCard?.placeOfGranted,
+                      defaultValue: widget.idCard?.placeOfGranted,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,

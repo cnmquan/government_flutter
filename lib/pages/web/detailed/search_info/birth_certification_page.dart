@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../../../models.dart';
+import '../../../../utils/assets.dart';
 import '../../../../utils/translation.dart';
 import '../../../../widgets/web.dart';
 
 class BirthCertificationPage extends StatefulWidget {
-  final String? birthCertificateId;
+  final BirthCertificationModel? birthCertification;
   const BirthCertificationPage({
     Key? key,
-    this.birthCertificateId,
+    this.birthCertification,
   }) : super(key: key);
 
   @override
@@ -18,29 +19,23 @@ class BirthCertificationPage extends StatefulWidget {
 
 class _BirthCertificationPageState extends State<BirthCertificationPage> {
   bool isEditState = false;
-  bool isLoading = true;
-  BirthCertificationModel? birthCertification;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-        const Duration(
-          seconds: 5,
-        ), () {
-      if (isLoading) {
-        Navigator.maybePop(context);
-        setState(() {
-          birthCertification = BirthCertificationModel.example();
-          isLoading = false;
-        });
-      }
-    });
-  }
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    if (widget.birthCertification == null) {
+      return const TemplateWidget(
+          child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        child: NotifyMessageWidget(
+          title: r'Đã xảy ra lỗi',
+          message:
+              r'Hệ thống truy xuất dữ liệu có vấn đề. Vui lòng thử lại sau.',
+          animatedPath: JsonAssetPath.failed,
+        ),
+      ));
+    }
     if (isLoading) {
       SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         _showLoadingDialog(context);
@@ -74,7 +69,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bCFullName,
-                      defaultValue: birthCertification?.fullName,
+                      defaultValue: widget.birthCertification?.fullName,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -85,7 +80,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcGender,
-                      defaultValue: birthCertification?.gender,
+                      defaultValue: widget.birthCertification?.gender,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -96,7 +91,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcDateOfBirth,
-                      defaultValue: birthCertification?.dateOfBirth,
+                      defaultValue: widget.birthCertification?.dateOfBirth,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -107,7 +102,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcDateOfBirthText,
-                      defaultValue: birthCertification?.dateOfBirthText,
+                      defaultValue: widget.birthCertification?.dateOfBirthText,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -118,7 +113,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcPlaceOfBirth,
-                      defaultValue: birthCertification?.placeOfBirth,
+                      defaultValue: widget.birthCertification?.placeOfBirth,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -129,7 +124,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcEthnic,
-                      defaultValue: birthCertification?.ethnic,
+                      defaultValue: widget.birthCertification?.ethnic,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -140,7 +135,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcNationality,
-                      defaultValue: birthCertification?.nationality,
+                      defaultValue: widget.birthCertification?.nationality,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -151,7 +146,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcPlaceOfOrigin,
-                      defaultValue: birthCertification?.placeOfOrigin,
+                      defaultValue: widget.birthCertification?.placeOfOrigin,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -162,7 +157,8 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcDateOfRegistration,
-                      defaultValue: birthCertification?.dateOfRegistration,
+                      defaultValue:
+                          widget.birthCertification?.dateOfRegistration,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -173,7 +169,8 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcPlaceOfRegistration,
-                      defaultValue: birthCertification?.placeOfRegistration,
+                      defaultValue:
+                          widget.birthCertification?.placeOfRegistration,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -199,7 +196,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bCFullName,
-                      defaultValue: birthCertification?.fatherFullName,
+                      defaultValue: widget.birthCertification?.fatherFullName,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -210,7 +207,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcEthnic,
-                      defaultValue: birthCertification?.fatherEthnic,
+                      defaultValue: widget.birthCertification?.fatherEthnic,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -221,7 +218,8 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcNationality,
-                      defaultValue: birthCertification?.fatherNationality,
+                      defaultValue:
+                          widget.birthCertification?.fatherNationality,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -247,7 +245,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bCFullName,
-                      defaultValue: birthCertification?.motherFullName,
+                      defaultValue: widget.birthCertification?.motherFullName,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -258,7 +256,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcEthnic,
-                      defaultValue: birthCertification?.motherEthnic,
+                      defaultValue: widget.birthCertification?.motherEthnic,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -269,7 +267,8 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcNationality,
-                      defaultValue: birthCertification?.motherNationality,
+                      defaultValue:
+                          widget.birthCertification?.motherNationality,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -294,7 +293,7 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bCFullName,
-                      defaultValue: birthCertification?.declarerFullName,
+                      defaultValue: widget.birthCertification?.declarerFullName,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
@@ -305,7 +304,8 @@ class _BirthCertificationPageState extends State<BirthCertificationPage> {
                         size.width > 800 ? size.width * 0.28 : double.maxFinite,
                     child: CustomTextFieldWidget(
                       label: TextPath.bcRelationship,
-                      defaultValue: birthCertification?.declarerRelationship,
+                      defaultValue:
+                          widget.birthCertification?.declarerRelationship,
                       canEditable: false,
                       padding: 12,
                       fontSize: 20,
