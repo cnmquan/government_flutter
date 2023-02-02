@@ -4,11 +4,15 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import 'utils/routing.dart';
 
-@WidgetbookApp(name: 'Government Demo', themeType: ThemeData, devices: [
-  Apple.iPhone13,
-  Samsung.s21ultra,
-  Apple.iMacM1,
-])
+@WidgetbookApp(
+  name: 'Government Demo',
+  themeType: ThemeData,
+  devices: [
+    Apple.iPhone13,
+    Samsung.s21ultra,
+    Apple.iMacM1,
+  ],
+)
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
