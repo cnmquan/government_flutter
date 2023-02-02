@@ -113,30 +113,6 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(
                 height: 8,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RoutingMobilePath.forgetPassword,
-                  );
-                },
-                child: const SizedBox(
-                  width: double.maxFinite,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: Text(
-                      r'Quên mật khẩu',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                        color: Colors.green,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                ),
-              ),
               const SizedBox(
                 height: 12,
               ),
