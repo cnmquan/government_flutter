@@ -39,6 +39,44 @@ class SearchInfoGridWidget {
     ),
   ];
 
+  static List<PlutoColumn> requestsColumn = [
+    PlutoColumn(
+      title: r'Số điện thoại',
+      field: 'phoneNumber',
+      type: PlutoColumnType.text(),
+      readOnly: true,
+      minWidth: 160,
+    ),
+    PlutoColumn(
+      title: r'Họ và Tên',
+      field: 'fullName',
+      type: PlutoColumnType.text(),
+      readOnly: true,
+      minWidth: 160,
+    ),
+    PlutoColumn(
+      title: r'Ngày gửi',
+      field: 'dateRequest',
+      type: PlutoColumnType.text(),
+      readOnly: true,
+      minWidth: 160,
+    ),
+    PlutoColumn(
+      title: r'Yêu cầu',
+      field: 'requestType',
+      type: PlutoColumnType.text(),
+      readOnly: true,
+      minWidth: 160,
+    ),
+    PlutoColumn(
+      title: r'Trạng thái',
+      field: 'status',
+      type: PlutoColumnType.text(),
+      readOnly: true,
+      minWidth: 160,
+    ),
+  ];
+
   static PlutoRow getRowByValue({
     String? id,
     String? name,
@@ -53,6 +91,24 @@ class SearchInfoGridWidget {
         'dateOfBirth': PlutoCell(value: dateOfBirth),
         'place': PlutoCell(value: place),
         'paperNumber': PlutoCell(value: paperNumber),
+      },
+    );
+  }
+
+  static PlutoRow getRowRequestByValue({
+    String? phoneNumber,
+    String? fullName,
+    String? dateRequest,
+    String? requestType,
+    String? status,
+  }) {
+    return PlutoRow(
+      cells: {
+        'phoneNumber': PlutoCell(value: phoneNumber),
+        'fullName': PlutoCell(value: fullName),
+        'dateRequest': PlutoCell(value: dateRequest),
+        'requestType': PlutoCell(value: requestType),
+        'status': PlutoCell(value: status),
       },
     );
   }

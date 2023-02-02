@@ -81,6 +81,12 @@ Route<dynamic> routeWebController(RouteSettings settings) {
         builder: (context) =>
             FamilyInformationPage(familyId: familyId as String?),
       );
+    case RoutingWebPath.requestResident:
+      var requestModel = settings.arguments as RequestModel?;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => RequestResidentPage(requestModel: requestModel),
+      );
     default:
       return MaterialPageRoute(
         settings: settings,

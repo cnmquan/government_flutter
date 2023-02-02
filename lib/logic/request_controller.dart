@@ -36,6 +36,7 @@ class RequestController extends FirebaseController {
       );
       requests.add(requestModel);
     }
+    debugPrint('${requests.length}');
     return requests;
   }
 

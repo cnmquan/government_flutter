@@ -8,3 +8,4 @@ export 'detailed/search_info/id_card_page.dart';
 export 'detailed/search_info/birth_certification_page.dart';
 export 'detailed/search_info/registration_book_page.dart';
 export 'detailed/search_info/family_information_page.dart';
+export 'detailed/accept_request/request_resident_page.dart';

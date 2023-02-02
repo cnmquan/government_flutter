@@ -13,4 +13,5 @@ class RoutingWebPath {
   static const String birthCertificate = '$searchInformation/birthCertificate';
   static const String registrationBook = '$searchInformation/registrationBook';
   static const String familyInfo = '$searchInformation/familyInfo';
+  static const String requestResident = '$acceptRequest/requestResident';
 }
