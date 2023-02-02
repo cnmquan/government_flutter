@@ -14,19 +14,25 @@ Route<dynamic> routeMobileController(RouteSettings settings) {
         builder: (context) => const HomePage(),
       );
     case RoutingMobilePath.idCard:
-      final idCard = settings.arguments as IdCardModel;
+      final arguments = settings.arguments as List<dynamic>;
+      final idCard = arguments[0] as IdCardModel;
+      final phoneNumber = arguments[1] as String;
       return MaterialPageRoute(
         settings: settings,
         builder: (context) => IdCardPage(
           idCard: idCard,
+          phoneNumber: phoneNumber,
         ),
       );
     case RoutingMobilePath.birthCertification:
-      final birthCertification = settings.arguments as BirthCertificationModel;
+      final arguments = settings.arguments as List<dynamic>;
+      final birthCertification = arguments[0] as BirthCertificationModel;
+      final phoneNumber = arguments[1] as String;
       return MaterialPageRoute(
         settings: settings,
         builder: (context) => BirthCertificatePage(
           birthCertification: birthCertification,
+          phoneNumber: phoneNumber,
         ),
       );
     case RoutingMobilePath.registrationBook:
@@ -38,6 +44,14 @@ Route<dynamic> routeMobileController(RouteSettings settings) {
       return MaterialPageRoute(
         settings: settings,
         builder: (context) => const RequestPaperPage(),
+      );
+    case RoutingMobilePath.requestList:
+      final phoneNumber = settings.arguments as String;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => RequestListPage(
+          phoneNumber: phoneNumber,
+        ),
       );
     case RoutingMobilePath.familyInformation:
       return MaterialPageRoute(

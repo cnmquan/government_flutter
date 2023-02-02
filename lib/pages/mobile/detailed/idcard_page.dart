@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:goverment_flutter_system/logic/request_controller.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import '../../../models.dart';
@@ -8,16 +9,19 @@ import '../../../utils/translation.dart';
 import '../../../widgets/mobile.dart';
 
 @WidgetbookUseCase(name: 'Page', type: IdCardPage)
-Widget idCardPage(BuildContext) => MaterialApp(
+Widget idCardPage(BuildContext context) => MaterialApp(
         home: IdCardPage(
       idCard: IdCardModel.example(),
+      phoneNumber: '0123456678',
     ));
 
 class IdCardPage extends StatefulWidget {
   final IdCardModel idCard;
+  final String phoneNumber;
   const IdCardPage({
     Key? key,
     required this.idCard,
+    required this.phoneNumber,
   }) : super(key: key);
 
   @override
@@ -225,8 +229,26 @@ class _IdCardPageState extends State<IdCardPage> {
                     width: 240,
                     padding: 12,
                     onPress: () {
+                      if (changedList.isEmpty) {
+                        return;
+                      }
+                      var results =
+                          _convertMapToListInIdCard(changedList, widget.idCard);
+                      debugPrint('$results');
                       _showLoadingDialog(context);
-                      Future.delayed(const Duration(seconds: 5), () {
+                      DateTime now = DateTime.now();
+                      RequestModel requestModel = RequestModel(
+                        phoneNumber: widget.phoneNumber,
+                        fullName: widget.idCard.fullName,
+                        dateRequest:
+                            '${now.hour}:${now.minute}:${now.second} ${now.day}/${now.month}/${now.year}',
+                        requestType: r'Chỉnh sửa CCCD/CMND',
+                        requests: results,
+                        status: r'Chưa được chấp nhận',
+                      );
+                      RequestController()
+                          .sendRequestResident(requestModel)
+                          .then((value) {
                         Navigator.maybePop(context);
                         Future.delayed(const Duration(milliseconds: 300), () {
                           _showCustomDialog(context);
@@ -271,5 +293,130 @@ class _IdCardPageState extends State<IdCardPage> {
             child: const LoadingWidget(),
           );
         });
+  }
+
+  String? _convertRequestString({
+    String? name,
+    String? before,
+    String? after,
+  }) {
+    if (after == null) {
+      return null;
+    }
+    return 'Thay đổi $name từ $before thành $after';
+  }
+
+  List<String?> _convertMapToListInIdCard(
+      Map<String, String?> after, IdCardModel? model) {
+    List<String?> results = [];
+    final fullName = _convertRequestString(
+      name: 'họ và tên',
+      before: model?.fullName,
+      after: after['fullName'],
+    );
+    if (fullName != null) {
+      results.add(fullName);
+    }
+    final idNumber = _convertRequestString(
+      name: 'số CMND/CCCD',
+      before: model?.idNumber,
+      after: after['idNumber'],
+    );
+    if (idNumber != null) {
+      results.add(idNumber);
+    }
+    final dateOfBirth = _convertRequestString(
+      name: 'ngày sinh',
+      before: model?.dateOfBirth,
+      after: after['dateOfBirth'],
+    );
+    if (dateOfBirth != null) {
+      results.add(dateOfBirth);
+    }
+    final dateOfExpiry = _convertRequestString(
+      name: 'ngày hết hạn',
+      before: model?.dateOfExpiry,
+      after: after['dateOfExpiry'],
+    );
+    if (dateOfExpiry != null) {
+      results.add(dateOfExpiry);
+    }
+    final dateOfGranted = _convertRequestString(
+      name: 'ngày cấp',
+      before: model?.dateOfGranted,
+      after: after['dateOfGranted'],
+    );
+    if (dateOfGranted != null) {
+      results.add(dateOfGranted);
+    }
+    final gender = _convertRequestString(
+      name: 'giới tính',
+      before: model?.gender,
+      after: after['gender'],
+    );
+    if (gender != null) {
+      results.add(gender);
+    }
+    final nationality = _convertRequestString(
+      name: 'quốc tịch',
+      before: model?.nationality,
+      after: after['nationality'],
+    );
+    if (nationality != null) {
+      results.add(nationality);
+    }
+    final personalIdentification = _convertRequestString(
+      name: 'đặc điểm nhận dạng',
+      before: model?.personalIdentification,
+      after: after['personalIdentification'],
+    );
+    if (personalIdentification != null) {
+      results.add(personalIdentification);
+    }
+    final placeOfGranted = _convertRequestString(
+      name: 'nơi cấp bằng',
+      before: model?.placeOfGranted,
+      after: after['placeOfGranted'],
+    );
+    if (placeOfGranted != null) {
+      results.add(placeOfGranted);
+    }
+    final placeOfOrigin = _convertRequestString(
+      name: 'quê quán',
+      before: model?.placeOfOrigin,
+      after: after['placeOfOrigin'],
+    );
+    if (placeOfOrigin != null) {
+      results.add(placeOfOrigin);
+    }
+    final placeOfResidence = _convertRequestString(
+      name: 'địa chỉ thường trú',
+      before: model?.placeOfResidence,
+      after: after['placeOfResidence'],
+    );
+    if (placeOfResidence != null) {
+      results.add(placeOfResidence);
+    }
+    final ethnic = _convertRequestString(
+      name: 'dân tộc',
+      before: model?.ethnic,
+      after: after['ethnic'],
+    );
+    if (ethnic != null) {
+      results.add(ethnic);
+    }
+    final religion = _convertRequestString(
+      name: 'tôn giáo',
+      before: model?.religion,
+      after: after['religion'],
+    );
+    if (religion != null) {
+      results.add(religion);
+    }
+    final image = after['image'] != null ? 'Cập nhật hình ảnh' : null;
+    if (image != null) {
+      results.add(image);
+    }
+    return results;
   }
 }
