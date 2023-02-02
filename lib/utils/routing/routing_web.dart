@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models.dart';
 import '../../pages/web.dart';
 import 'routing_web_path.dart';
 
@@ -48,24 +49,23 @@ Route<dynamic> routeWebController(RouteSettings settings) {
         builder: (context) => const ForgetPasswordPage(),
       );
     case RoutingWebPath.residentInfo:
-      var residentId = settings.arguments;
+      var resident = settings.arguments as ResidentModel?;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => ResidentInfoPage(resident: resident),
+      );
+    case RoutingWebPath.idCard:
+      var idCard = settings.arguments as IdCardModel?;
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (context) => IdCardPage(idCard: idCard),
+      );
+    case RoutingWebPath.birthCertificate:
+      var birthCertification = settings.arguments as BirthCertificationModel;
       return MaterialPageRoute(
         settings: settings,
         builder: (context) =>
-            ResidentInfoPage(residentId: residentId as String?),
-      );
-    case RoutingWebPath.idCard:
-      var idCardId = settings.arguments;
-      return MaterialPageRoute(
-        settings: settings,
-        builder: (context) => IdCardPage(idCardId: idCardId as String?),
-      );
-    case RoutingWebPath.birthCertificate:
-      var birthCertificateId = settings.arguments;
-      return MaterialPageRoute(
-        settings: settings,
-        builder: (context) => BirthCertificationPage(
-            birthCertificateId: birthCertificateId as String?),
+            BirthCertificationPage(birthCertification: birthCertification),
       );
     case RoutingWebPath.registrationBook:
       var registrationBookId = settings.arguments;
