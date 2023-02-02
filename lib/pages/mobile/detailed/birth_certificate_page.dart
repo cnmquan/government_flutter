@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
+import '../../../logic/request_controller.dart';
 import '../../../models.dart';
 import '../../../utils/assets.dart';
 import '../../../utils/translation.dart';
@@ -12,14 +13,17 @@ Widget birthCertificatePage(BuildContext context) {
   return MaterialApp(
       home: BirthCertificatePage(
     birthCertification: BirthCertificationModel.example(),
+    phoneNumber: '01234567878',
   ));
 }
 
 class BirthCertificatePage extends StatefulWidget {
   final BirthCertificationModel birthCertification;
+  final String phoneNumber;
   const BirthCertificatePage({
     Key? key,
     required this.birthCertification,
+    required this.phoneNumber,
   }) : super(key: key);
 
   @override
@@ -364,8 +368,26 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
                     width: 240,
                     padding: 12,
                     onPress: () {
+                      if (changedList.isEmpty) {
+                        return;
+                      }
+                      var results = _convertMapToListInBirthCertification(
+                          changedList, widget.birthCertification);
+                      debugPrint('$results');
                       _showLoadingDialog(context);
-                      Future.delayed(const Duration(seconds: 5), () {
+                      DateTime now = DateTime.now();
+                      RequestModel requestModel = RequestModel(
+                        phoneNumber: widget.phoneNumber,
+                        fullName: widget.birthCertification.fullName,
+                        dateRequest:
+                            '${now.hour}:${now.minute}:${now.second} ${now.day}/${now.month}/${now.year}',
+                        requestType: r'Chỉnh sửa giấy khai sinh',
+                        requests: results,
+                        status: r'Chưa được chấp nhận',
+                      );
+                      RequestController()
+                          .sendRequestResident(requestModel)
+                          .then((value) {
                         Navigator.maybePop(context);
                         Future.delayed(const Duration(milliseconds: 300), () {
                           _showCustomDialog(context);
@@ -410,5 +432,166 @@ class _BirthCertificatePageState extends State<BirthCertificatePage> {
             child: const LoadingWidget(),
           );
         });
+  }
+
+  String? _convertRequestString({
+    String? name,
+    String? before,
+    String? after,
+  }) {
+    if (after == null) {
+      return null;
+    }
+    return 'Thay đổi $name từ $before thành $after';
+  }
+
+  List<String?> _convertMapToListInBirthCertification(
+      Map<String, String?> after, BirthCertificationModel? model) {
+    List<String?> results = [];
+    final fullName = _convertRequestString(
+      name: 'họ và tên',
+      before: model?.fullName,
+      after: after['fullName'],
+    );
+    if (fullName != null) {
+      results.add(fullName);
+    }
+    final gender = _convertRequestString(
+      name: 'giới tính',
+      before: model?.gender,
+      after: after['gender'],
+    );
+    if (gender != null) {
+      results.add(gender);
+    }
+    final dateOfBirth = _convertRequestString(
+      name: 'ngày sinh',
+      before: model?.dateOfBirth,
+      after: after['dateOfBirth'],
+    );
+    if (dateOfBirth != null) {
+      results.add(dateOfBirth);
+    }
+    final dateOfBirthText = _convertRequestString(
+      name: 'ngày sinh bằng chữ',
+      before: model?.dateOfBirthText,
+      after: after['dateOfBirthText'],
+    );
+    if (dateOfBirthText != null) {
+      results.add(dateOfBirthText);
+    }
+    final placeOfBirth = _convertRequestString(
+      name: 'nơi sinh',
+      before: model?.placeOfBirth,
+      after: after['placeOfBirth'],
+    );
+    if (placeOfBirth != null) {
+      results.add(placeOfBirth);
+    }
+    final ethnic = _convertRequestString(
+      name: 'dân tộc',
+      before: model?.ethnic,
+      after: after['ethnic'],
+    );
+    if (ethnic != null) {
+      results.add(ethnic);
+    }
+    final nationality = _convertRequestString(
+      name: 'quốc tịch',
+      before: model?.nationality,
+      after: after['nationality'],
+    );
+    if (nationality != null) {
+      results.add(nationality);
+    }
+    final placeOfOrigin = _convertRequestString(
+      name: 'quê quán',
+      before: model?.placeOfOrigin,
+      after: after['placeOfOrigin'],
+    );
+    if (placeOfOrigin != null) {
+      results.add(placeOfOrigin);
+    }
+    final fatherFullName = _convertRequestString(
+      name: 'họ và tên cha',
+      before: model?.fatherFullName,
+      after: after['fatherFullName'],
+    );
+    if (fatherFullName != null) {
+      results.add(fatherFullName);
+    }
+    final fatherEthnic = _convertRequestString(
+      name: 'dân tộc của cha',
+      before: model?.fatherEthnic,
+      after: after['fatherEthnic'],
+    );
+    if (fatherEthnic != null) {
+      results.add(fatherEthnic);
+    }
+    final fatherNationality = _convertRequestString(
+      name: 'quốc tịch của cha',
+      before: model?.fatherNationality,
+      after: after['fatherNationality'],
+    );
+    if (fatherNationality != null) {
+      results.add(fatherNationality);
+    }
+    final motherFullName = _convertRequestString(
+      name: 'họ và tên mẹ',
+      before: model?.motherFullName,
+      after: after['motherFullName'],
+    );
+    if (motherFullName != null) {
+      results.add(motherFullName);
+    }
+    final motherEthnic = _convertRequestString(
+      name: 'dân tộc của mẹ',
+      before: model?.motherEthnic,
+      after: after['motherEthnic'],
+    );
+    if (motherEthnic != null) {
+      results.add(motherEthnic);
+    }
+    final motherNationality = _convertRequestString(
+      name: 'quốc tịch của mẹ',
+      before: model?.motherNationality,
+      after: after['motherNationality'],
+    );
+    if (motherNationality != null) {
+      results.add(motherNationality);
+    }
+    final declarerFullName = _convertRequestString(
+      name: 'họ và tên người khai',
+      before: model?.declarerFullName,
+      after: after['declarerFullName'],
+    );
+    if (declarerFullName != null) {
+      results.add(declarerFullName);
+    }
+    final declarerRelationship = _convertRequestString(
+      name: 'mối quan hệ của người khai',
+      before: model?.declarerRelationship,
+      after: after['declarerRelationship'],
+    );
+    if (declarerRelationship != null) {
+      results.add(declarerRelationship);
+    }
+    final dateOfRegistration = _convertRequestString(
+      name: 'ngày đăng ký',
+      before: model?.dateOfRegistration,
+      after: after['dateOfRegistration'],
+    );
+    if (dateOfRegistration != null) {
+      results.add(dateOfRegistration);
+    }
+    final placeOfRegistration = _convertRequestString(
+      name: 'nơi đăng ký',
+      before: model?.placeOfRegistration,
+      after: after['placeOfRegistration'],
+    );
+    if (placeOfRegistration != null) {
+      results.add(placeOfRegistration);
+    }
+    return results;
   }
 }

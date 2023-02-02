@@ -5,6 +5,7 @@ class RoutingMobilePath {
   static const String birthCertification = '/home/birthCertification';
   static const String requestPaper = 'home/requestPaper';
   static const String familyInformation = 'home/familyInformation';
+  static const String requestList = 'home/requestList';
   static const String signIn = 'signIn';
   static const String signInWithPhone = 'signInWithPhone';
   static const String signUp = 'signUp';

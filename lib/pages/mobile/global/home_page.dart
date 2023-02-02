@@ -57,7 +57,10 @@ class HomePage extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(
                     context,
                     RoutingMobilePath.idCard,
-                    arguments: residentModel.idCardModel,
+                    arguments: [
+                      residentModel.idCardModel,
+                      residentModel.phoneNumber
+                    ],
                   ),
                 ),
                 ImageBoxTextWidget(
@@ -66,7 +69,10 @@ class HomePage extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(
                     context,
                     RoutingMobilePath.birthCertification,
-                    arguments: residentModel.birthCertificationModel,
+                    arguments: [
+                      residentModel.birthCertificationModel,
+                      residentModel.phoneNumber
+                    ],
                   ),
                 ),
                 ImageBoxTextWidget(
@@ -91,6 +97,15 @@ class HomePage extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(
                     context,
                     RoutingMobilePath.requestPaper,
+                  ),
+                ),
+                ImageBoxTextWidget(
+                  imagePath: ImageAssetPath.requestPaper,
+                  title: TextPath.requestList,
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RoutingMobilePath.requestList,
+                    arguments: residentModel.phoneNumber ?? '0000000',
                   ),
                 ),
               ],
